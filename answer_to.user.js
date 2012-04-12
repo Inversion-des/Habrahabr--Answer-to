@@ -1,10 +1,10 @@
 // Answer to... 
-// v1.3.2 (01.04.12)
+// v1.3.3 (12.04.12)
 // by Yuriy Babak aka Inversion (http://inversion.habrahabr.ru/), mailto: yura.des@gmail.com
 
 // ==UserScript==
 // @name			Answer to...
-// @version        	1.3.2
+// @version        	1.3.3
 // @namespace		Habrahabr
 // @description		Shows the comment for which this comment is an answer
 // @include			http://habrahabr.ru/*
@@ -12,6 +12,7 @@
 
 /*
 
+	v1.3.3 (12.04.12)
 	v1.3.2 (01.04.12)
 	- исправлена совместимость с Opera
 	
@@ -54,7 +55,7 @@ ID ответа — comment_1706843
 
 "use strict";
 
-var unsafeWindow = ( typeof unsafeWindow == 'undefined' ? window : unsafeWindow )
+window.unsafeWindow = ( typeof unsafeWindow == 'undefined' ? window : unsafeWindow )
 
 !function(win, uwin, doc, $) {
 
