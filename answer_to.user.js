@@ -1,16 +1,18 @@
 // Answer to... 
-// v1.3.3 (12.04.12)
 // by Yuriy Babak aka Inversion (http://inversion.habrahabr.ru/), mailto: yura.des@gmail.com
 
 // ==UserScript==
 // @name			Answer to...
-// @version        	1.3.3
+// @version        	1.3.4
 // @namespace		Habrahabr
 // @description		Shows the comment for which this comment is an answer
 // @include			http://habrahabr.ru/*
 // ==/UserScript==
 
 /*
+
+	v1.3.4 (09.12.12)
+	- оптимизирован враппер
 
 	v1.3.3 (12.04.12)
 	v1.3.2 (01.04.12)
@@ -55,12 +57,13 @@ ID ответа — comment_1706843
 
 "use strict";
 
-window.unsafeWindow = ( typeof unsafeWindow == 'undefined' ? window : unsafeWindow )
+!function(win) {
 
-!function(win, uwin, doc, $) {
+if (window != window.top) return
+var doc = win.document
 
-window.addEventListener("load", function() {
-	if (document.getElementById('comments')) {
+win.addEventListener("load", function() {
+	if (doc.getElementById('comments')) {
 	
 		var msgStyle = "\
 			background-color:white;\
@@ -73,17 +76,17 @@ window.addEventListener("load", function() {
 			box-shadow: 0px 3px 12px 3px rgba(0, 0, 0, 0.3);"
 		
 		// поддержка старой верстки
-		if (document.getElementById('main-page')) {
-			window.msgContainer_cont = document.createElement("ul")
-			window.msgContainer_cont.className = "hentry"
-			window.msgContainer_cont.innerHTML = '<li class="comment_holder vote_holder" style="'+msgStyle+'"></li>'
-			window.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;width:64.8%;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
-			document.body.appendChild(window.msgContainer_cont)
-			window.msgContainer = window.msgContainer_cont.firstChild
-			window.comments = document.getElementById("comments")
+		if (doc.getElementById('main-page')) {
+			win.msgContainer_cont = doc.createElement("ul")
+			win.msgContainer_cont.className = "hentry"
+			win.msgContainer_cont.innerHTML = '<li class="comment_holder vote_holder" style="'+msgStyle+'"></li>'
+			win.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;width:64.8%;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
+			doc.body.appendChild(win.msgContainer_cont)
+			win.msgContainer = win.msgContainer_cont.firstChild
+			win.comments = doc.getElementById("comments")
 		 	
  			// прописываем ховер стрелочкам всех комментов
-			var arrsUp = window.comments.getElementsByTagName('li')
+			var arrsUp = win.comments.getElementsByTagName('li')
 			for (var i=0, l=arrsUp.length; i<l; i++) {
 				var el = arrsUp[i]
 				if (el.className == 'up-to-parent') {
@@ -96,17 +99,17 @@ window.addEventListener("load", function() {
 		}
 		else {
 			// готовим контейнер для просмотра
-			window.msgContainer_cont = document.createElement("div")
-			window.msgContainer_cont.className = "comments_list comments_list_answerTo"
-			window.msgContainer_cont.innerHTML = '<div class="comment_item" style="'+msgStyle+'"></div>'
-			window.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
-			document.body.appendChild(window.msgContainer_cont)
-			window.msgContainer = window.msgContainer_cont.firstChild
+			win.msgContainer_cont = doc.createElement("div")
+			win.msgContainer_cont.className = "comments_list comments_list_answerTo"
+			win.msgContainer_cont.innerHTML = '<div class="comment_item" style="'+msgStyle+'"></div>'
+			win.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
+			doc.body.appendChild(win.msgContainer_cont)
+			win.msgContainer = win.msgContainer_cont.firstChild
 	 	
 	 		// прописываем ховер стрелочкам всех комментов
-			var arr = document.links
-			for (i=0,l=document.links.length; i<l; i++) {
-				var link = document.links[i]
+			var arr = doc.links
+			for (i=0,l=doc.links.length; i<l; i++) {
+				var link = doc.links[i]
 				if (link.className == 'to_parent') {
 					activateArrow(link)
 				}
@@ -114,9 +117,9 @@ window.addEventListener("load", function() {
 			
 			// таймер для активации новых комментариев
 			setInterval(function() {
-				var jQuery = unsafeWindow.jQuery
-				if (jQuery) {
-					var newComments = jQuery('.comment .is_new .to_parent')
+				var $ = win.jQuery
+				if ($) {
+					var newComments = $('.comment .is_new .to_parent')
 					for (var i=0, li=newComments.length; i<li; i++) {
 						var link = newComments[i]
 						if (link.getAttribute('oninit') != 'activaded') {
@@ -131,7 +134,7 @@ window.addEventListener("load", function() {
 		
 		
 		// на клик — прячем коммент
-		window.addEventListener("mousedown", hideTargetComment, false)
+		win.addEventListener("mousedown", hideTargetComment, false)
 		
 	}
 	
@@ -147,19 +150,19 @@ function activateArrow(arrEl) {
 function showTargetComment(href, arrEl) {
 	// ищем объект по id
 	var id = href.replace(/^.*?#/, '')
-	var target = document.getElementById(id)
+	var target = doc.getElementById(id)
 	
 	// чистим контейнер
-	while (window.msgContainer.childNodes.length) {window.msgContainer.removeChild(window.msgContainer.childNodes[0])}
+	while (win.msgContainer.childNodes.length) {win.msgContainer.removeChild(win.msgContainer.childNodes[0])}
 	
 	
 	// поддержка старой верстки
-	if (document.getElementById('main-page')) {
+	if (doc.getElementById('main-page')) {
 		// заполняем контейнер новым комментом
 		for (var i=0, l=target.childNodes.length; i<l; i++) {
 			var tmp = target.childNodes[i]
 			if (/msg-meta|entry-content/.test(tmp.className)) {
-				window.msgContainer.appendChild(tmp.cloneNode(true))	
+				win.msgContainer.appendChild(tmp.cloneNode(true))	
 			}
 			// выходим из цикла
 			if (tmp.className == "entry-content") break
@@ -170,7 +173,7 @@ function showTargetComment(href, arrEl) {
 		for (var i=0, l=target.childNodes.length; i<l; i++) {
 			var tmp = target.childNodes[i]
 			if (/info|message/.test(tmp.className)) {
-				window.msgContainer.appendChild(tmp.cloneNode(true))	
+				win.msgContainer.appendChild(tmp.cloneNode(true))	
 			}
 			// выходим из цикла
 			if (tmp.className == "message") break
@@ -179,38 +182,38 @@ function showTargetComment(href, arrEl) {
 	
 	
 	// подгоняем ширину под блок комментариев
-	var pageComments_cont = document.getElementById('comments')
-	window.msgContainer_cont.style.width = pageComments_cont.offsetWidth+absLeft(pageComments_cont)-8 + 'px'
+	var pageComments_cont = doc.getElementById('comments')
+	win.msgContainer_cont.style.width = pageComments_cont.offsetWidth+absLeft(pageComments_cont)-8 + 'px'
 	
 	
 	var targetTop = absTop(target)
-	var windowScrollPos = unsafeWindow.document.documentElement.scrollTop || unsafeWindow.document.body.scrollTop
+	var windowScrollPos = doc.documentElement.scrollTop || doc.body.scrollTop
 		
 	// inline highlight
-	window.msgContainer.style.top = targetTop>windowScrollPos  ?  targetTop-windowScrollPos-3 +'px'  :  0
+	win.msgContainer.style.top = targetTop>windowScrollPos  ?  targetTop-windowScrollPos-3 +'px'  :  0
 	
 	// height auto adjustment
 	if (targetTop<windowScrollPos) {
 		var currentCommentTop = absTop(arrEl.parentNode.parentNode)
 		var targetCommentHeight = target.offsetHeight
 		var delta = (windowScrollPos + targetCommentHeight)  -  (currentCommentTop-10)
-		window.msgContainer.style.maxHeight = delta>0  ?  targetCommentHeight-delta +'px'  :  ''
+		win.msgContainer.style.maxHeight = delta>0  ?  targetCommentHeight-delta +'px'  :  ''
 	}
 	else {
-		window.msgContainer.style.maxHeight = ''
+		win.msgContainer.style.maxHeight = ''
 	}
 
 	// показываем
-	window.msgContainer.parentNode.style.display = "block"
+	win.msgContainer.parentNode.style.display = "block"
 	
 	// отступы
-	window.msgContainer.style.marginLeft = absLeft(target)-5+'px'
-	window.msgContainer.style.width = window.msgContainer.parentNode.offsetWidth-parseInt(window.msgContainer.style.marginLeft)+'px'
+	win.msgContainer.style.marginLeft = absLeft(target)-5+'px'
+	win.msgContainer.style.width = win.msgContainer.parentNode.offsetWidth-parseInt(win.msgContainer.style.marginLeft)+'px'
 	
 }
 
 function hideTargetComment() {
-	window.msgContainer.parentNode.style.display = "none"
+	win.msgContainer.parentNode.style.display = "none"
 }
 
 function absLeft(o) {
@@ -228,4 +231,4 @@ function absTop(o) {
 	return l
 }
 
-}(window, unsafeWindow, unsafeWindow.document, unsafeWindow.jQuery)
+}(typeof unsafeWindow == 'undefined' ? window : unsafeWindow)
