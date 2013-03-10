@@ -3,13 +3,16 @@
 
 // ==UserScript==
 // @name			Answer to...
-// @version        	1.3.4
+// @version        	1.3.5
 // @namespace		Habrahabr
 // @description		Shows the comment for which this comment is an answer
 // @include			http://habrahabr.ru/*
 // ==/UserScript==
 
 /*
+
+	v1.3.5 (10.03.13)
+	- fixed: broken comment body finder
 
 	v1.3.4 (09.12.12)
 	- оптимизирован враппер
@@ -170,13 +173,23 @@ function showTargetComment(href, arrEl) {
 	}
 	else {
 		// заполняем контейнер новым комментом
+		var comment_body = null
 		for (var i=0, l=target.childNodes.length; i<l; i++) {
 			var tmp = target.childNodes[i]
-			if (/info|message/.test(tmp.className)) {
-				win.msgContainer.appendChild(tmp.cloneNode(true))	
+			if (/comment_body/.test(tmp.className)) {
+				comment_body = tmp
+				break
 			}
-			// выходим из цикла
-			if (tmp.className == "message") break
+		}
+		if (comment_body) {
+			for (var i=0, l=comment_body.childNodes.length; i<l; i++) {
+				var tmp = comment_body.childNodes[i]
+				if (/info|message/.test(tmp.className)) {
+					win.msgContainer.appendChild(tmp.cloneNode(true))
+				}
+				// выходим из цикла
+				if (tmp.className == "message") break
+			}
 		}
 	}
 	
