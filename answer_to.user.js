@@ -3,14 +3,19 @@
 
 // ==UserScript==
 // @name			Answer to...
-// @version        	1.3.5
+// @version        	1.3.6
 // @namespace		Habrahabr
 // @description		Shows the comment for which this comment is an answer
+// @include			http://geektimes.ru/*
 // @include			http://habrahabr.ru/*
+// @include			http://megamozg.ru/*
 // ==/UserScript==
 
 /*
 
+	v1.3.6 (10.06.15)
+	- добавлена поддержка Geektimes и Мегамозга
+	
 	v1.3.5 (10.03.13)
 	- fixed: broken comment body finder
 
