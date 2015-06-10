@@ -6,6 +6,9 @@ h2. Answer to...
 
 h3. Changelog
 
+v1.3.6 (10.06.15)
+- добавлена поддержка Geektimes и Мегамозга
+
 v1.3.5 (10.03.13)
 - fixed: broken comment body finder
 
