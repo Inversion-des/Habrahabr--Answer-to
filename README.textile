@@ -6,6 +6,9 @@ h2. Answer to...
 
 h3. Changelog
 
+v1.3.7 (31.01.16)
+- добавлена поддержка https-страниц
+
 v1.3.6 (10.06.15)
 - добавлена поддержка Geektimes и Мегамозга
 
@@ -50,6 +53,6 @@ h2. Больше
 
 h4. Мои userscripts:
 
-# "FixedHider":http://userscripts.org/scripts/show/54099 — на Хабе, при скроллинге прячет боковую панельку с position:fixed (в Firefox её наличие ухудшает плавность перерисовки страницы при скроллинге).
+# "FixedHider":http://userscripts.org/scripts/show/54099 — на Хабре, при скроллинге прячет боковую панельку с position:fixed (в Firefox её наличие ухудшает плавность перерисовки страницы при скроллинге).
 
 Author: Yuriy Babak /// Inversion ("http://inversion.habrahabr.ru/":http://inversion.habrahabr.ru/). Send feedback to "yura.des@gmail.com":mailto:yura.des@gmail.com
