@@ -92,29 +92,7 @@ win.addEventListener("load", function() {
 			-moz-box-shadow: 0px 3px 12px 3px rgba(0, 0, 0, 0.3);\
 			box-shadow: 0px 3px 12px 3px rgba(0, 0, 0, 0.3);"
 		
-		// поддержка старой верстки
-		if (doc.getElementById('main-page')) {
-			win.msgContainer_cont = doc.createElement("ul")
-			win.msgContainer_cont.className = "hentry"
-			win.msgContainer_cont.innerHTML = '<li class="comment_holder vote_holder" style="'+msgStyle+'"></li>'
-			win.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;width:64.8%;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
-			doc.body.appendChild(win.msgContainer_cont)
-			win.msgContainer = win.msgContainer_cont.firstChild
-			win.comments = doc.getElementById("comments")
-		 	
- 			// прописываем ховер стрелочкам всех комментов
-			var arrsUp = win.comments.getElementsByTagName('li')
-			for (var i=0, l=arrsUp.length; i<l; i++) {
-				var el = arrsUp[i]
-				if (el.className == 'up-to-parent') {
-					el.firstChild.addEventListener("mouseover", function(){
-						showTargetComment(this.getAttribute('href'), this)
-					}, false)
-					el.firstChild.addEventListener("mouseout", hideTargetComment, false)
-				}
-			}
-		}
-		else {
+			//! <<
 			// готовим контейнер для просмотра
 			win.msgContainer_cont = doc.createElement("div")
 			win.msgContainer_cont.className = "comments_list comments_list_answerTo"
@@ -147,8 +125,6 @@ win.addEventListener("load", function() {
 				}
 			}, 2000)
 			
-		}
-		
 		
 		// на клик — прячем коммент
 		win.addEventListener("mousedown", hideTargetComment, false)
