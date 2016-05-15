@@ -80,7 +80,8 @@ if (window != window.top) return
 var doc = win.document
 
 win.addEventListener("load", function() {
-	if (doc.getElementById('comments')) {
+	var comments_cont = doc.getElementById('comments')
+	if (comments_cont) {
 	
 		var msgStyle = "\
 			background-color:white;\
@@ -101,13 +102,8 @@ win.addEventListener("load", function() {
 		win.msgContainer = win.msgContainer_cont.firstChild
  	
  		// прописываем ховер стрелочкам всех комментов
-		var arr = doc.links
-		for (i=0,l=doc.links.length; i<l; i++) {
-			var link = doc.links[i]
-			if (link.className == 'to_parent') {
-				activateArrow(link)
-			}
-		}
+		var arrows = comments_cont.getElementsByClassName('js-comment_parent')
+		$.each(arrows, activateArrow)
 		
 		// таймер для активации новых комментариев
 		setInterval(function() {
@@ -132,7 +128,7 @@ win.addEventListener("load", function() {
 	
 }, false);
 
-function activateArrow(arrEl) {
+function activateArrow(index, arrEl) {
 	arrEl.addEventListener("mouseover", function(){
 		showTargetComment(this.getAttribute('href'), arrEl)
 	}, false)
