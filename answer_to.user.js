@@ -147,28 +147,25 @@ function showTargetComment(href, arrEl) {
 	// чистим контейнер
 	while (win.msgContainer.childNodes.length) {win.msgContainer.removeChild(win.msgContainer.childNodes[0])}
 	
-	
-		//! <<
-		// заполняем контейнер новым комментом
-		var comment_body = null
-		for (var i=0, l=target.childNodes.length; i<l; i++) {
-			var tmp = target.childNodes[i]
-			if (/comment_body/.test(tmp.className)) {
-				comment_body = tmp
-				break
-			}
+	// заполняем контейнер новым комментом
+	var comment_body = null
+	for (var i=0, l=target.childNodes.length; i<l; i++) {
+		var tmp = target.childNodes[i]
+		if (/comment_body/.test(tmp.className)) {
+			comment_body = tmp
+			break
 		}
-		if (comment_body) {
-			for (var i=0, l=comment_body.childNodes.length; i<l; i++) {
-				var tmp = comment_body.childNodes[i]
-				if (/info|message/.test(tmp.className)) {
-					win.msgContainer.appendChild(tmp.cloneNode(true))
-				}
-				// выходим из цикла
-				if (tmp.className == "message") break
+	}
+	if (comment_body) {
+		for (var i=0, l=comment_body.childNodes.length; i<l; i++) {
+			var tmp = comment_body.childNodes[i]
+			if (/info|message/.test(tmp.className)) {
+				win.msgContainer.appendChild(tmp.cloneNode(true))
 			}
+			// выходим из цикла
+			if (tmp.className == "message") break
 		}
-	
+	}
 	
 	// подгоняем ширину под блок комментариев
 	var pageComments_cont = doc.getElementById('comments')
