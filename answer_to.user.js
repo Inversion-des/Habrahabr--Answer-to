@@ -148,19 +148,7 @@ function showTargetComment(href, arrEl) {
 	while (win.msgContainer.childNodes.length) {win.msgContainer.removeChild(win.msgContainer.childNodes[0])}
 	
 	
-	// поддержка старой верстки
-	if (doc.getElementById('main-page')) {
-		// заполняем контейнер новым комментом
-		for (var i=0, l=target.childNodes.length; i<l; i++) {
-			var tmp = target.childNodes[i]
-			if (/msg-meta|entry-content/.test(tmp.className)) {
-				win.msgContainer.appendChild(tmp.cloneNode(true))	
-			}
-			// выходим из цикла
-			if (tmp.className == "entry-content") break
-		}
-	}
-	else {
+		//! <<
 		// заполняем контейнер новым комментом
 		var comment_body = null
 		for (var i=0, l=target.childNodes.length; i<l; i++) {
@@ -180,7 +168,6 @@ function showTargetComment(href, arrEl) {
 				if (tmp.className == "message") break
 			}
 		}
-	}
 	
 	
 	// подгоняем ширину под блок комментариев
