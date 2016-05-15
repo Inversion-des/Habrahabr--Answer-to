@@ -2,7 +2,7 @@
 // @name			Answer to...
 // @description		Shows the comment for which this comment is an answer
 // @namespace		Habrahabr
-// @version        	1.3.7
+// @version        	1.3.8
 // @include			http://geektimes.ru/*
 // @include			https://geektimes.ru/*
 // @include			http://habrahabr.ru/*
