@@ -10,9 +10,8 @@
 // @include			https://habrahabr.ru/*
 // @include			https://megamozg.ru/*
 // @updateURL	    https://github.com/Inversion-des/Habrahabr--Answer-to/raw/master/answer_to.meta.js
-// @downloadURL     https://github.com/Inversion-des/Habrahabr--Answer-to/raw/master/answer_to.user.js
+// @downloadURL	https://github.com/Inversion-des/Habrahabr--Answer-to/raw/master/answer_to.user.js
 // @supportURL	    https://github.com/Inversion-des/Habrahabr--Answer-to/issues
-// @contributionURL https://flattr.com/thing/608272/Habrahabr-Answer-to
 // ==/UserScript==
 
 
