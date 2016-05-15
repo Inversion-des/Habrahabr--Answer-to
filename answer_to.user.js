@@ -120,11 +120,10 @@ win.addEventListener("load", function() {
 			}
 		}, 2000)
 			
-		
 		// на клик — прячем коммент
 		win.addEventListener("mousedown", hideTargetComment, false)
 		
-	}
+	}   // if comments_cont
 	
 }, false);
 
@@ -191,8 +190,7 @@ function showTargetComment(href, arrEl) {
 	// отступы
 	win.msgContainer.style.marginLeft = absLeft(target)-5+'px'
 	win.msgContainer.style.width = win.msgContainer.parentNode.offsetWidth-parseInt(win.msgContainer.style.marginLeft)+'px'
-	
-}
+}   // showTargetComment
 
 function hideTargetComment() {
 	win.msgContainer.parentNode.style.display = "none"
