@@ -92,38 +92,37 @@ win.addEventListener("load", function() {
 			-moz-box-shadow: 0px 3px 12px 3px rgba(0, 0, 0, 0.3);\
 			box-shadow: 0px 3px 12px 3px rgba(0, 0, 0, 0.3);"
 		
-			//! <<
-			// готовим контейнер для просмотра
-			win.msgContainer_cont = doc.createElement("div")
-			win.msgContainer_cont.className = "comments_list comments_list_answerTo"
-			win.msgContainer_cont.innerHTML = '<div class="comment_item" style="'+msgStyle+'"></div>'
-			win.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
-			doc.body.appendChild(win.msgContainer_cont)
-			win.msgContainer = win.msgContainer_cont.firstChild
-	 	
-	 		// прописываем ховер стрелочкам всех комментов
-			var arr = doc.links
-			for (i=0,l=doc.links.length; i<l; i++) {
-				var link = doc.links[i]
-				if (link.className == 'to_parent') {
-					activateArrow(link)
-				}
+		// готовим контейнер для просмотра
+		win.msgContainer_cont = doc.createElement("div")
+		win.msgContainer_cont.className = "comments_list comments_list_answerTo"
+		win.msgContainer_cont.innerHTML = '<div class="comment_item" style="'+msgStyle+'"></div>'
+		win.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
+		doc.body.appendChild(win.msgContainer_cont)
+		win.msgContainer = win.msgContainer_cont.firstChild
+ 	
+ 		// прописываем ховер стрелочкам всех комментов
+		var arr = doc.links
+		for (i=0,l=doc.links.length; i<l; i++) {
+			var link = doc.links[i]
+			if (link.className == 'to_parent') {
+				activateArrow(link)
 			}
-			
-			// таймер для активации новых комментариев
-			setInterval(function() {
-				var $ = win.jQuery
-				if ($) {
-					var newComments = $('.comment .is_new .to_parent')
-					for (var i=0, li=newComments.length; i<li; i++) {
-						var link = newComments[i]
-						if (link.getAttribute('oninit') != 'activaded') {
-							activateArrow(link)
-							link.setAttribute('oninit', 'activaded')
-						}
+		}
+		
+		// таймер для активации новых комментариев
+		setInterval(function() {
+			var $ = win.jQuery
+			if ($) {
+				var newComments = $('.comment .is_new .to_parent')
+				for (var i=0, li=newComments.length; i<li; i++) {
+					var link = newComments[i]
+					if (link.getAttribute('oninit') != 'activaded') {
+						activateArrow(link)
+						link.setAttribute('oninit', 'activaded')
 					}
 				}
-			}, 2000)
+			}
+		}, 2000)
 			
 		
 		// на клик — прячем коммент
