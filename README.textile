@@ -43,16 +43,3 @@ v1.1 (07.11.09)
 
 v1.0 (27.10.09)
 - public release
-
-!//api.flattr.com/button/button-static-50x60.png(Flattr this)!:http://flattr.com/thing/608272/Habrahabr-Answer-to
-
-<br>
-
-
-h2. Больше
-
-h4. Мои userscripts:
-
-# "FixedHider":http://userscripts.org/scripts/show/54099 — на Хабре, при скроллинге прячет боковую панельку с position:fixed (в Firefox её наличие ухудшает плавность перерисовки страницы при скроллинге).
-
-Author: Yuriy Babak /// Inversion ("http://inversion.habrahabr.ru/":http://inversion.habrahabr.ru/). Send feedback to "yura.des@gmail.com":mailto:yura.des@gmail.com
