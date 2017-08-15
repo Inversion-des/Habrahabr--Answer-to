@@ -5,7 +5,7 @@
 // @name			Answer to...
 // @description		Shows the comment for which this comment is an answer
 // @namespace		Habrahabr
-// @version        	1.3.8
+// @version        	1.3.9
 // @include			https://geektimes.ru/*
 // @include			https://habrahabr.ru/*
 // @updateURL	    https://github.com/Inversion-des/Habrahabr--Answer-to/raw/master/answer_to.meta.js
@@ -47,8 +47,8 @@ win.addEventListener("load", function() {
 		
 		// готовим контейнер для просмотра
 		win.msgContainer_cont = doc.createElement("div")
-		win.msgContainer_cont.className = "comments_list comments_list_answerTo"
-		win.msgContainer_cont.innerHTML = '<div class="comment_item" style="'+msgStyle+'"></div>'
+		win.msgContainer_cont.className = "content-list__item_comment comments_list_answerTo"
+		win.msgContainer_cont.innerHTML = '<div class="comment" style="'+msgStyle+'"></div>'
 		win.msgContainer_cont.style.cssText = "position:fixed;top:0px;left:0px;display:none;z-index:99;margin:0 !important;padding:0 !important;overflow:visible;text-align:left;"
 		doc.body.appendChild(win.msgContainer_cont)
 		win.msgContainer = win.msgContainer_cont.firstChild
@@ -95,18 +95,18 @@ function showTargetComment(href, arrEl) {
 	while (win.msgContainer.childNodes.length) {win.msgContainer.removeChild(win.msgContainer.childNodes[0])}
 	
 	// заполняем контейнер новым комментом
-	var comment_body = null
-	for (var i=0, l=target.childNodes.length; i<l; i++) {
-		var tmp = target.childNodes[i]
-		if (/comment_body/.test(tmp.className)) {
-			comment_body = tmp
-			break
-		}
-	}
+	var comment_body = target
+//	for (var i=0, l=target.childNodes.length; i<l; i++) {
+//		var tmp = target.childNodes[i]
+//		if (/comment_body/.test(tmp.className)) {
+//			comment_body = tmp
+//			break
+//		}
+//	}
 	if (comment_body) {
 		for (var i=0, l=comment_body.childNodes.length; i<l; i++) {
 			var tmp = comment_body.childNodes[i]
-			if (/info|message/.test(tmp.className)) {
+			if (/head|message/.test(tmp.className)) {
 				win.msgContainer.appendChild(tmp.cloneNode(true))
 			}
 			// выходим из цикла
@@ -116,7 +116,7 @@ function showTargetComment(href, arrEl) {
 	
 	// подгоняем ширину под блок комментариев
 	var pageComments_cont = doc.getElementById('comments')
-	win.msgContainer_cont.style.width = pageComments_cont.offsetWidth+absLeft(pageComments_cont)-8 + 'px'
+	win.msgContainer_cont.style.width = pageComments_cont.offsetWidth+absLeft(pageComments_cont)+2 + 'px'
 	
 	
 	var targetTop = absTop(target)
